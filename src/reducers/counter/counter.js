@@ -40,6 +40,7 @@ const counterReducer = (state = initialState, action) => {
       }
     case ActionTypes.INCREMENT_BY_AMOUNT:
       if (state.value + action.payload > state.upperLimit) {
+        console.log("upper limit reached");
         return {
           ...state,
           upperLimitReached: true,
@@ -47,6 +48,7 @@ const counterReducer = (state = initialState, action) => {
           value: state.upperLimit,
         }
       } else if (state.value + action.payload <= state.upperLimit) {
+
         return {
           ...state,
           value: state.value + action.payload,
@@ -57,6 +59,7 @@ const counterReducer = (state = initialState, action) => {
       return state;
     case ActionTypes.DECREMENT_BY_AMOUNT:
       if (state.value - action.payload < state.lowerLimit) {
+        console.log("lower limit reached");
         return {
           ...state,
           lowerLimitReached: true,
