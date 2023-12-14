@@ -25,7 +25,7 @@ const counterSlice = createSlice({
         state.value += 1;
         state.upperLimitReached = false;
         state.lowerLimitReached = false;
-      } else if (state.value === state.upperLimit) {
+      } else if (state.value + 1 > state.upperLimit!) {
         state.upperLimitReached = true;
         console.log("Upper limit reached!")
       }
@@ -35,7 +35,7 @@ const counterSlice = createSlice({
         state.value -= 1;
         state.lowerLimitReached = false;
         state.upperLimitReached = false;
-      } else if (state.value === state.lowerLimit) {
+      } else if (state.value - 1 < state.lowerLimit) {
         state.lowerLimitReached = true;
         console.log("Lower limit reached!");
       }
@@ -44,6 +44,7 @@ const counterSlice = createSlice({
       if (state.value + action.payload > state.upperLimit!) {
         console.log("Can't go past the upper limit!");
         state.upperLimitReached = true;
+        state.lowerLimitReached = false;
         state.value = state.upperLimit!;
       }
       else if (state.value + action.payload <= state.upperLimit!) {
@@ -56,6 +57,7 @@ const counterSlice = createSlice({
       if (state.value - action.payload < state.lowerLimit) {
         console.log("Can't go below the lower limit!");
         state.lowerLimitReached = true;
+        state.upperLimitReached = false;
         state.value = state.lowerLimit;
       }
       else if (state.value - action.payload >= state.lowerLimit) {
@@ -63,9 +65,15 @@ const counterSlice = createSlice({
         state.lowerLimitReached = false;
         state.upperLimitReached = false;
       }
-    }
+    },
+    updateUpperLimitReached: (state, action: PayloadAction<boolean>) => {
+      state.upperLimitReached = action.payload;
+    },
+    updateLowerLimitReached: (state, action: PayloadAction<boolean>) => {
+      state.lowerLimitReached = action.payload;
+    },
   },
 });
 
-export const { increment, decrement, incrementByAmount, decrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount, decrementByAmount, updateLowerLimitReached, updateUpperLimitReached } = counterSlice.actions;
 export default counterSlice.reducer;

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import * as ActionTypes from '../../constants/ActionTypes';
 
 interface InputBoxSlice {
   value: number;
@@ -12,13 +13,12 @@ const inputBoxSlice = createSlice({
   name: "inputBox",
   initialState,
   reducers: {
-    updateValue: (state, action: PayloadAction<number>) => {
+    updateNumericalValue: (state, action: PayloadAction<number>) => {
       state.value = action.payload;
-      console.log("InputBox value updated to: " + state.value);
     },
   },
 });
 
 
-export const { updateValue } = inputBoxSlice.actions;
+export const { updateNumericalValue } = inputBoxSlice.actions;
 export default inputBoxSlice.reducer;
